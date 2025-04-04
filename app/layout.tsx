@@ -1,4 +1,6 @@
 import Icon from '@/public/ico/favicon.ico'
+import { Analytics } from '@vercel/analytics/react'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 import type { Metadata } from 'next'
 import { ToastContainer } from 'react-toastify'
 import './globals.css'
@@ -22,6 +24,8 @@ export default function RootLayout({
       <body className="min-h-screen">
         <ToastContainer />
         {children}
+        <Analytics />
+        <SpeedInsights/>
       </body>
     </html>
   )
