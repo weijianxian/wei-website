@@ -14,6 +14,7 @@ export default function SetuShower({ data }: SetuShowerProps) {
       ) : (
         <p className="m-10 text-gray-500">没有数据</p>
       )}
+      {data && data.length > 0 && <div className="w-full text-center text-gray-500">共 {data.length} 条数据</div>}
     </div>
   )
 }

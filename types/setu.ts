@@ -25,10 +25,6 @@ export enum aiTypeEnum {
     IsAI = 2,    // 是
 };
 
-export interface SetuResponse {
-    error?: string; // 错误信息
-    data?: SetuData[]; // 色图数组
-}
 export interface SetuData {
     pid: number; // 作品 pid
     p: number; // 作品所在页

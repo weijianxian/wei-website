@@ -22,10 +22,10 @@ export default function RootLayout({
   return (
     <html>
       <body className="min-h-screen">
-        <ToastContainer />
+        <ToastContainer hideProgressBar />
         {children}
         <Analytics />
-        <SpeedInsights/>
+        <SpeedInsights />
       </body>
     </html>
   )

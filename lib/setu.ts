@@ -1,16 +1,13 @@
-import { SetuParams, SetuResponse } from "@/types/setu";
-import axios from "axios";
+import { request } from '@/lib/http'
+import { HttpResponse } from '@/types/http'
+import { SetuData, SetuParams } from '@/types/setu'
 
+export async function getSetu(params: SetuParams): Promise<SetuData[]> {
+  const response = await request.post<HttpResponse<SetuData[]>>('/api/setu', params, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
 
-export async function getSetu(parm: SetuParams) {
-    const response = await axios.post("/api/setu", parm, {
-        headers: {
-            "Content-Type": "application/json",
-        },
-    });
-    const data: SetuResponse = response.data as SetuResponse;
-    if (data.error || !data.data) {
-        throw new Error(data.error);
-    }
-    return data.data;
+  return response.data.data
 }
