@@ -1,5 +1,6 @@
 'use client'
 
+import { IconLink } from '@/components/common/link'
 import { SetuController, SetuShower } from '@/components/setu'
 import { getSetu } from '@/lib/setu'
 import { SetuData, SetuParams } from '@/types/setu'
@@ -20,6 +21,7 @@ export default function SetuPage() {
         toast.success('获取数据成功')
       }
     } catch (err: unknown) {
+      console.error(err)
       toast.error('获取数据失败: ' + (err as Error).message)
     }
   }, [])
@@ -33,6 +35,11 @@ export default function SetuPage() {
         }}
       />
       <SetuShower data={data} />
+      <div className="mt-4 text-center text-sm text-gray-500">
+        感谢
+        <IconLink href="https://lolicon.app" className="text-blue-600" target="_blank" />
+        提供的 API
+      </div>
     </>
   )
 }

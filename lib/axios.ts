@@ -1,3 +1,5 @@
+// 适用于本应用的后端的API路由的HTTP请求处理函数
+
 import { HttpCode, HttpResponse } from '@/types/http'
 import axios, { AxiosError, AxiosResponse } from 'axios'
 

@@ -1,13 +1,12 @@
-import { request } from '@/lib/http'
-import { HttpResponse } from '@/types/http'
-import { SetuData, SetuParams } from '@/types/setu'
+import { SetuData, SetuParams, SetuResponse } from '@/types/setu'
+import { requestWithApifox } from './api_fox_forward'
 
 export async function getSetu(params: SetuParams): Promise<SetuData[]> {
-  const response = await request.post<HttpResponse<SetuData[]>>('/api/setu', params, {
-    headers: {
-      'Content-Type': 'application/json',
-    },
+  const response = await requestWithApifox<SetuResponse>({
+    url: 'https://api.lolicon.app/setu/v2',
+    method: 'POST',
+    data: params as Record<string, unknown>,
+    timeout: 30000,
   })
-
-  return response.data.data
+  return response.data
 }

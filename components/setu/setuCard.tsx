@@ -1,7 +1,6 @@
+import { IconLink } from '@/components/common/link'
 import { SetuData } from '@/types/setu'
-import { LinkOutlined } from '@ant-design/icons'
 import { Card, Tag } from 'antd'
-import Link from 'next/link'
 
 export default function SetuCard(data: SetuData) {
   const { pid, title, author, p, urls, tags } = data
@@ -42,10 +41,9 @@ export default function SetuCard(data: SetuData) {
       <div className="flex-warp mt-2 flex gap-1">
         {Object.entries(Links).map(([key, value], index) => (
           <Tag key={index} color="orange">
-            <Link href={value} target="_blank">
-              <LinkOutlined />
+            <IconLink href={value} target="_blank">
               {key}
-            </Link>
+            </IconLink>
           </Tag>
         ))}
       </div>
