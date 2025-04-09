@@ -12,10 +12,8 @@ export default function SetuCard(data: SetuData) {
   }
   const Links = {
     作品主页: `https://pixiv.net/i/${pid}`,
-    原图: urls.original,
+    原图: urls.original || `https://pixiv.net/i/${pid}`, // 原图地址 没有原图就到作品页查看
   }
-
-  console.log(place_holder)
 
   return (
     <Card
@@ -23,7 +21,7 @@ export default function SetuCard(data: SetuData) {
       hoverable
       cover={
         <img
-          src={urls.original}
+          src={urls.original || place_holder.src} // 原图地址 防止空值
           alt={tags?.join(',')}
           onError={e => {
             e.currentTarget.onerror = null // 防止循环触发
