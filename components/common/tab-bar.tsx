@@ -51,7 +51,7 @@ export default function TabBar({ title }: { title?: string }) {
       <nav className="flex gap-4 md:hidden">
         <MenuOutlined onClick={handleToggle} />
         {isMounted && (
-          <Drawer onClose={handleToggle} open={isOpen}>
+          <Drawer onClose={handleToggle} open={isOpen} width={9000}>
             {SHORT_LINKS.map((link, index) => (
               <Button
                 key={index}

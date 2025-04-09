@@ -1,3 +1,5 @@
+'use client'
+
 export default function Footer() {
   return (
     <div className="flex h-16 items-center justify-center bg-gray-100">

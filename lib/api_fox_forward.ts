@@ -34,20 +34,40 @@ export async function requestWithApifox<T>({
 
     url = `${url}?${searchParams.toString()}`
   }
-
-  // 发送请求到 Apifox 代理
-  const response = await axios.post(
-    'https://web-proxy.apifox.cn/api/v1/request',
-    data, // 请求体数据
-    {
-      headers: {
-        'api-u': url, // 目标 URL
-        'api-o0': `method=${method}, timings=true, timeout=${timeout}, rejectUnauthorized=false, followRedirect=true`,
-        'Content-Type': 'application/json',
+  try {
+    // 发送请求到 Apifox 代理
+    const response = await axios.post(
+      'https://web-proxy.apifox.cn/api/v1/request',
+      data, // 请求体数据
+      {
+        headers: {
+          'api-u': url, // 目标 URL
+          'api-o0': `method=${method}, timings=true, timeout=${timeout}, rejectUnauthorized=false, followRedirect=true`,
+          'Content-Type': 'application/json',
+        },
       },
-    },
-  )
+    )
 
-  // 返回响应数据
-  return response.data as T
+    // 返回响应数据
+    return response.data as T
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      // 处理 Axios 错误
+      console.error('发生Axios错误: ', error.message)
+
+      if (error.response) {
+        console.error('远端响应数据:', error.response.data)
+        throw new Error(`请求失败: ${error.response.status} ${error.response.statusText}`)
+      } else if (error.request) {
+        console.error('请求未收到响应:', error.request)
+        throw new Error('请求未收到响应')
+      } else {
+        console.error('请求发生错误:', error.message)
+        throw new Error(`请求发生错误: ${error.message}`)
+      }
+    }
+    // 处理其他错误
+    console.error('在使用apifox代理请求时发生未知错误:', error)
+    throw new Error(`在使用apifox代理请求时发生未知错误`)
+  }
 }

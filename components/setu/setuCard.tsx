@@ -1,7 +1,7 @@
 import { IconLink } from '@/components/common/link'
+import place_holder from '@/public/setu/place_holder.svg'
 import { SetuData } from '@/types/setu'
 import { Card, Tag } from 'antd'
-
 export default function SetuCard(data: SetuData) {
   const { pid, title, author, p, urls, tags } = data
 
@@ -14,8 +14,24 @@ export default function SetuCard(data: SetuData) {
     作品主页: `https://pixiv.net/i/${pid}`,
     原图: urls.original,
   }
+
+  console.log(place_holder)
+
   return (
-    <Card className="w-full md:w-60" hoverable cover={<img src={urls.original} alt={tags?.join(',')} />}>
+    <Card
+      className="w-full md:w-60"
+      hoverable
+      cover={
+        <img
+          src={urls.original}
+          alt={tags?.join(',')}
+          onError={e => {
+            e.currentTarget.onerror = null // 防止循环触发
+            e.currentTarget.src = place_holder.src // 替换为默认占位图
+          }}
+        />
+      }
+    >
       {/* 作品标题 */}
       <div className="text-3xl font-bold">{title}</div>
 
